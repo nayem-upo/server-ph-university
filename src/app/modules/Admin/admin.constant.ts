@@ -20,4 +20,5 @@ export const AdminSearchableFields = [
   'emergencyContactNo',
   'name.firstName',
   'name.lastName',
+  'name.middleName',
 ];
