@@ -3,8 +3,8 @@ import httpStatus from 'http-status';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from '../config';
 import AppError from '../errors/AppError';
-import { TUserRole } from '../modules/user/user.interface';
-import { User } from '../modules/user/user.model';
+import { TUserRole } from '../modules/User/user.interface';
+import { User } from '../modules/User/user.model';
 import catchAsync from '../utils/catchAsync';
 
 const auth = (...requiredRoles: TUserRole[]) => {
@@ -15,16 +15,12 @@ const auth = (...requiredRoles: TUserRole[]) => {
     if (!token) {
       throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized!');
     }
-    let decoded;
-    try {
-      // checking if the given token is valid
-      decoded = jwt.verify(
-        token,
-        config.jwt_access_secret as string,
-      ) as JwtPayload;
-    } catch {
-      throw new AppError(httpStatus.UNAUTHORIZED, 'Unauthorized !');
-    }
+
+    // checking if the given token is valid
+    const decoded = jwt.verify(
+      token,
+      config.jwt_access_secret as string,
+    ) as JwtPayload;
 
     const { role, userId, iat } = decoded;
 
@@ -62,7 +58,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
     if (requiredRoles && !requiredRoles.includes(role)) {
       throw new AppError(
         httpStatus.UNAUTHORIZED,
-        'You are not authorized!',
+        'You are not authorized  hi!',
       );
     }
 
